@@ -1,0 +1,39 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #f2f5f9; color: #1c2733; }
+.topbar { background: #0138ba; color: #fff; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 10; }
+.brand { display: flex; gap: 10px; align-items: center; cursor: pointer; }
+.logo { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: #0138ba; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+.brand-name { font-weight: 800; font-size: 18px; }
+.brand-tag { font-size: 12px; opacity: .85; }
+nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.navbtn { background: transparent; border: 1px solid rgba(255,255,255,.5); color: #fff; padding: 7px 12px; border-radius: 20px; cursor: pointer; }
+.btn { padding: 9px 16px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: 600; }
+.btn.primary { background: #0138ba; color: #fff; border-color: #0138ba; }
+.btn.small { padding: 5px 10px; font-size: 13px; }
+main { max-width: 960px; margin: 0 auto; padding: 16px; }
+.hero { background: #fff; border-radius: 12px; padding: 18px; margin-bottom: 14px; }
+.hero h1 { margin: 0 0 6px; font-size: 24px; }
+.searchbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.searchbar input, .searchbar select { padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+.searchbar input { flex: 2; min-width: 200px; }
+.hint { color: #5b6b7a; font-size: 13px; }
+.joblist { display: grid; gap: 12px; }
+.jobcard { background: #fff; border-radius: 12px; padding: 16px; cursor: pointer; border: 1px solid #e2e8f0; }
+.jobcard:hover { border-color: #0138ba; }
+.jobcard h3 { margin: 0 0 4px; font-size: 17px; }
+.jobcard .meta { color: #455; font-size: 14px; }
+.salary { font-weight: 800; color: #0a7a3d; font-size: 16px; margin-top: 6px; }
+.view h2 { margin: 6px 0 12px; }
+.card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+.card label { display: block; margin: 10px 0; font-size: 14px; font-weight: 600; }
+.card input, .card select, .card textarea { display: block; width: 100%; margin-top: 4px; padding: 9px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+.row { display: flex; gap: 10px; margin-top: 10px; }
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: flex-start; justify-content: center; padding: 20px; z-index: 50; overflow-y: auto; }
+.modal-card { background: #fff; border-radius: 12px; padding: 20px; max-width: 640px; width: 100%; position: relative; }
+.modal-card label { display: block; margin: 10px 0; font-size: 14px; font-weight: 600; }
+.modal-card input, .modal-card textarea { display: block; width: 100%; margin-top: 4px; padding: 9px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+.close { position: absolute; top: 10px; right: 12px; border: none; background: #eee; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; }
+footer { max-width: 960px; margin: 0 auto; padding: 16px; color: #5b6b7a; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+td, th { border-bottom: 1px solid #e2e8f0; padding: 8px 4px; text-align: left; }
+@media (max-width: 600px) { .hero h1 { font-size: 20px; } }

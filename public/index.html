@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staffora Jobs — Gulf Manpower Jobs | Staffora International</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" onclick="showView('jobs')">
+    <div class="logo">S</div>
+    <div><div class="brand-name">Staffora Jobs</div><div class="brand-tag">Sapna aapka, raasta humara</div></div>
+  </div>
+  <nav id="nav">
+    <button class="navbtn" onclick="showView('jobs')">Jobs</button>
+    <button class="navbtn" id="navSaved" onclick="showView('saved')" style="display:none">Saved Jobs</button>
+    <button class="navbtn" id="navMyApps" onclick="showView('myapps')" style="display:none">My Applications</button>
+    <button class="navbtn" id="navProfile" onclick="showView('profile')" style="display:none">Profile</button>
+    <button class="navbtn" id="navAdmin" onclick="showView('admin')" style="display:none">Admin</button>
+    <span id="userChip" style="display:none"></span>
+    <button class="btn primary" id="loginBtn" onclick="openAuth()">Login / Signup</button>
+    <button class="btn" id="logoutBtn" onclick="logout()" style="display:none">Logout</button>
+  </nav>
+</header>
+
+<main>
+  <section id="view-jobs" class="view">
+    <div class="hero">
+      <h1>Gulf Jobs — Interview Gopalganj me</h1>
+      <p>Friends Test &amp; Training Centre, Sugar Mill Road, Near Railway Dhala, Gopalganj, Bihar 841428 &nbsp;•&nbsp; Subah 9 baje se &nbsp;•&nbsp; Contact: 9934474646, 9289548800</p>
+      <div class="searchbar">
+        <input id="q" placeholder="Trade ya company dhoondho — jaise Welder, Electrician, Farnek…" oninput="loadJobs()">
+        <select id="country" onchange="loadJobs()"><option value="">All Countries</option></select>
+        <select id="trade" onchange="loadJobs()">
+          <option value="">All Trades</option>
+          <option>Welder</option><option>Electrician</option><option>Plumber</option><option>Mason</option>
+          <option>Carpenter</option><option>Steel Fixer</option><option>Scaffolder</option><option>Pipe Fitter</option>
+          <option>Fabricator</option><option>Driver</option><option>Helper</option><option>Supervisor</option>
+          <option>Foreman</option><option>Painter</option><option>Technician</option>
+        </select>
+        <select id="sort" onchange="loadJobs()">
+          <option value="newest">Newest first</option>
+          <option value="salary_desc">Salary: high to low</option>
+          <option value="salary_asc">Salary: low to high</option>
+        </select>
+      </div>
+      <p class="hint" id="jobCount"></p>
+      <p class="hint">Salary sort number ke hisab se hota hai — currency alag-alag ho sakti hai (AED / OMR / BHD / SAR / RUB), isliye detail me currency zaroor dekho.</p>
+    </div>
+    <div id="jobList" class="joblist"></div>
+  </section>
+
+  <section id="view-saved" class="view" style="display:none">
+    <h2>Saved Jobs</h2><div id="savedList" class="joblist"></div>
+  </section>
+
+  <section id="view-myapps" class="view" style="display:none">
+    <h2>My Applications</h2><div id="myAppsList"></div>
+  </section>
+
+  <section id="view-profile" class="view" style="display:none">
+    <h2>My Profile</h2>
+    <div class="card">
+      <label>Name <input id="pName"></label>
+      <label>Mobile (WhatsApp) <input id="pMobile" placeholder="10 digit mobile"></label>
+      <label>Trade <input id="pTrade" placeholder="jaise Welder, Electrician"></label>
+      <label>Experience (years) <input id="pExp" type="number" min="0"></label>
+      <label><input type="checkbox" id="pGulf"> Gulf experience hai</label>
+      <label>Passport status
+        <select id="pPassport"><option value="">—</option><option>Yes — valid passport</option><option>ECR</option><option>ECNR</option><option>No passport yet</option></select>
+      </label>
+      <button class="btn primary" onclick="saveProfile()">Save Profile</button>
+      <p class="hint">Apply karne ke liye mobile number zaroori hai — Staffora team WhatsApp par hi sampark karti hai.</p>
+      <p id="profileMsg"></p>
+    </div>
+  </section>
+
+  <section id="view-admin" class="view" style="display:none">
+    <h2>Admin Panel — Staffora</h2>
+    <div class="card">
+      <h3>Post a New Job</h3>
+      <label>Title <input id="aTitle" placeholder="jaise Helper / General Labour"></label>
+      <label>Company <input id="aCompany"></label>
+      <label>Country <input id="aCountry" placeholder="UAE / Oman / Bahrain / Saudi Arabia"></label>
+      <label>City <input id="aCity" placeholder="Dubai (optional)"></label>
+      <label>Trade <input id="aTrade" placeholder="jaise Multiple Trades"></label>
+      <label>Salary Min <input id="aSalMin" type="number"></label>
+      <label>Salary Max <input id="aSalMax" type="number"></label>
+      <label>Currency <input id="aCurr" value="AED"></label>
+      <label>Vacancies <input id="aVac" type="number"></label>
+      <label>Benefits <input id="aBen" placeholder="Food + accommodation + transport"></label>
+      <label>Description <textarea id="aDesc" rows="4"></textarea></label>
+      <label>Requirements <input id="aReq" placeholder="Age 21-45"></label>
+      <button class="btn primary" onclick="postJob()">Post Job</button>
+      <p id="adminMsg"></p>
+    </div>
+    <div class="card">
+      <h3>Google Login Setup</h3>
+      <p>Current Client ID: <code id="gCurrent">—</code></p>
+      <p>Is app ka origin (Google Cloud me Authorised JavaScript origin me ye add karo): <code id="gOrigin"></code> <button class="btn" onclick="navigator.clipboard.writeText(location.origin)">Copy</button></p>
+      <p class="hint">Google Cloud Console → Staffora Jobs project → Credentials → OAuth client "Staffora Jobs" → Authorised JavaScript origins me upar wala origin add karo. Redirect URI ki zaroorat nahi hai. Google kehta hai settings ko 5 minute se kuch ghante lag sakte hain.</p>
+      <label>Google Client ID <input id="gClientId" placeholder="xxxxx.apps.googleusercontent.com"></label>
+      <button class="btn primary" onclick="saveGoogleClientId()">Save Client ID</button>
+    </div>
+    <div class="card">
+      <h3>Applications</h3>
+      <div id="adminApps"></div>
+    </div>
+    <div class="card">
+      <h3>All Jobs (open / close)</h3>
+      <div id="adminJobs"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Staffora International</strong> — Sapna aapka, raasta humara • WhatsApp: 95464 50997, 9266471707</p>
+  <p class="hint">Interviews Friends Test &amp; Training Centre, Gopalganj me hote hain. Kisi bhi job ke liye advance dene se pehle recruiter/company ka licence eMigrate par verify karo. Staffora kisi bhi employer ki taraf se licence hone ka daava nahi karti.</p>
+</footer>
+
+<!-- Job detail modal -->
+<div id="jobModal" class="modal" style="display:none">
+  <div class="modal-card">
+    <button class="close" onclick="closeJob()">✕</button>
+    <div id="jobDetail"></div>
+  </div>
+</div>
+
+<!-- Auth modal -->
+<div id="authModal" class="modal" style="display:none">
+  <div class="modal-card">
+    <button class="close" onclick="closeAuth()">✕</button>
+    <h2 id="authTitle">Login / Signup</h2>
+    <div id="googleBtn"></div>
+    <p class="hint" id="googleNote"></p>
+    <hr>
+    <label>Name (signup ke liye) <input id="authName" placeholder="Apna naam"></label>
+    <label>Mobile <input id="authMobile" placeholder="10 digit mobile"></label>
+    <label>Password <input id="authPass" type="password" placeholder="kam se kam 6 characters"></label>
+    <label id="staffRow" style="display:none">Staff Code (admin signup ke liye) <input id="authStaff" placeholder="50997"></label>
+    <label><input type="checkbox" id="authAdmin" onchange="document.getElementById('staffRow').style.display=this.checked?'block':'none'"> Admin account banana hai (Staffora team)</label>
+    <div class="row">
+      <button class="btn primary" onclick="doLogin()">Login</button>
+      <button class="btn" onclick="doSignup()">Signup</button>
+    </div>
+    <p id="authMsg"></p>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
