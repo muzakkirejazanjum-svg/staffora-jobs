@@ -470,7 +470,11 @@ async function start() {
   });
   await pool.query(SCHEMA);
   await seed();
-  app.listen(PORT, () => console.log(`Staffora Jobs running on http://localhost:${PORT}`));
+  // Only listen when run directly (node server.js). On Vercel the
+  // serverless wrapper in api/index.js calls start() without listening.
+  if (require.main === module) {
+    app.listen(PORT, () => console.log(`Staffora Jobs running on http://localhost:${PORT}`));
+  }
 }
 
 module.exports = { app, start };
