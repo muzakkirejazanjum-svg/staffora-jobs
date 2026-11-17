@@ -1,0 +1,28 @@
+# Render Blueprint — one free web service. The Postgres database is Neon (free),
+# created separately at neon.tech (see README) because Render's own free
+# Postgres expires after 30 days. Paste your Neon connection string as DATABASE_URL.
+services:
+  - type: web
+    name: staffora-jobs
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # Neon Postgres connection string (pooled, sslmode=require)
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        value: 277314253222-qdmo82233tmvqmvlq7vtfjuc9tc5h5o3.apps.googleusercontent.com
+      - key: ADMIN_MOBILE
+        value: "9546450997"
+      - key: ADMIN_PASSWORD
+        sync: false # set once: seeds the admin account on first boot, then remove it
+      - key: STAFF_CODE
+        value: "50997"
+      - key: WHATSAPP_NUMBER
+        value: "919546450997"
